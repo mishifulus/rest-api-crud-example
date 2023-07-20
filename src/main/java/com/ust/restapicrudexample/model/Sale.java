@@ -21,26 +21,24 @@ public class Sale {
     private Long id;
 
     @Column(nullable = false)
-    @NotBlank
     @NotNull
     @Min(value = 0)
     @Max(value = 1000000)
     private float total;
 
-    @Column(nullable = false)
-    @NotBlank
-    @NotNull // Validaciones con JSR 380
-    @OneToMany(mappedBy = "ITEM") //Multiples items
+    @ManyToMany // Relación muchos a muchos con Item
+    @JoinTable(
+            name = "SALE_ITEM", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "sale_id"), // Columna que hace referencia a la tabla Sale
+            inverseJoinColumns = @JoinColumn(name = "item_id") // Columna que hace referencia a la tabla Item
+    )
     private List<Item> items;
 
-    @Column(nullable = false)
     @ManyToOne // Solo un cliente
-    @NotBlank
     @NotNull
     private Customer customer;
 
     @Column(nullable = false)
-    @NotBlank
     @NotNull
     private LocalDateTime date;
 }

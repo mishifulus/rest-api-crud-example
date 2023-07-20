@@ -31,7 +31,6 @@ public class Item {
     private String description;
 
     @Column(nullable = false)
-    @NotBlank
     @NotNull
     @Min(value = 0)
     @Max(value = 10000)
